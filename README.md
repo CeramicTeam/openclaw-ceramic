@@ -1,4 +1,4 @@
-# Ceramic Search
+# OpenClaw Ceramic
 
 Web-scale search for your OpenClaw agent, powered by [Ceramic](https://www.ceramic.ai) — 100x cheaper and 10x faster than standard search APIs, with a 40B+ page index.
 
