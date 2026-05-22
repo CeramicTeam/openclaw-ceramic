@@ -2,9 +2,8 @@
 
 Web-scale search for your OpenClaw agent, powered by [Ceramic](https://www.ceramic.ai) — 100x cheaper and 10x faster than standard search APIs, with a 40B+ page index.
 
-## Installation
-
-**1. Install the skill:**
+## Setup
+**1. Install the Ceramic Search skill:**
 ```bash
 openclaw skills install ceramic-search
 ```
@@ -17,25 +16,21 @@ export CERAMIC_API_KEY=your_api_key_here
 
 To persist it across sessions, add the line above to your `~/.zshrc`, `~/.bashrc`, or equivalent.
 
-**3. Restart the gateway:**
-```bash
-openclaw gateway restart
-```
+**3. Restart the gateway or start a new session:**                                                                           
+                                                                                                                        
+```bash                                                                                                                      
+openclaw gateway restart                                                               
+```    
+                                                                                                        
+You can verify installation with:                                                                                            
+                                                                                                                        
+```bash                                                                                                                      
+openclaw skills list                                                                                                         
+```    
 
 ## Usage
 
-Once installed, your agent will use Ceramic automatically whenever it needs to search the web. You can also ask explicitly:
-
-> "Search for the latest news on X"
-> "Look up the current price of Y"
-> "Find recent research on Z"
-
-## Pricing
-
-See [ceramic.ai/pricing](https://www.ceramic.ai/pricing) for details.
-
-## Troubleshooting
-
-**Auth errors:** Check that `CERAMIC_API_KEY` is set correctly in your environment (`echo $CERAMIC_API_KEY`), then run `openclaw gateway restart`.
-
-**Skill not found:** Run `openclaw skills list` to confirm the skill installed, then restart the gateway.
+Once installed and visible in a new session, the skill instructs the agent to use Ceramic whenever it needs current or external web context. You can also ask explicitly:
+- "Search for the latest news on X"
+- "Look up the current price of Y"
+- "Find recent research on Z"
