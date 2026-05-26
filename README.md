@@ -8,7 +8,7 @@ The plugin registers `ceramic_search` as a native agent tool. Under the hood, th
 
 **1. Install the plugin:**
 ```bash
-openclaw plugins install @ceramicai/openclaw-ceramic-search
+openclaw plugins install clawhub:@ceramicai/openclaw-ceramic-search
 ```
 
 **2. Set your API key:**
