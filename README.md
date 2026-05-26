@@ -1,29 +1,44 @@
 # OpenClaw Ceramic
 
-Web-scale search for your OpenClaw agent, powered by [Ceramic](https://www.ceramic.ai) — 100x cheaper and 10x faster than standard search APIs, with a 40B+ page index.
+Web-scale search for your OpenClaw agent, powered by [Ceramic](https://www.ceramic.ai) — a lexical (keyword-based) search engine that is 100x cheaper and 10x faster than standard search APIs, with a 40B+ page index.
 
-## Option 1 — Plugin
+There are two ways to integrate Ceramic search into OpenClaw: a **plugin** and a **skill**. The plugin is recommended — it registers `ceramic_search` as a native agent tool, handles rewriting natural language queries into keyword queries internally via an LLM call, and runs searches in parallel with deduplication. This produces more consistent and higher-quality results than the prompt-based skill approach. 
 
-The plugin registers `ceramic_search` as a native agent tool. Under the hood, the tool rewrites natural language queries into optimized keyword queries using an internal LLM call, then hits the Ceramic Search API directly.
+The skill is simpler in that the instructions for query rewriting are included in the skill description, and there is no additional LLM call. The skill may also be easier to customize.
 
-**1. Install the plugin:**
+## API key
+
+Obtain your API key from the [Ceramic platform page](https://platform.ceramic.ai/keys) and set your API key:
+
+```bash
+openclaw config set plugins.entries.ceramic-search.config.apiKey your_api_key_here
+```
+
+## Setup
+
+### 1. Installation
+
+To install the plugin, run: 
+
 ```bash
 openclaw plugins install clawhub:@ceramicai/openclaw-ceramic-search
 ```
 
-**2. Set your API key:**
-Get a Ceramic API key for free at [platform.ceramic.ai/keys](https://platform.ceramic.ai/keys) and export it:
+To install the skill instead, run:
 ```bash
-export CERAMIC_API_KEY=your_api_key_here
+openclaw skills install ceramic-search
 ```
 
-**3. Allow the plugin and expose the tool:**
+### 2. Allow the plugin and expose the tool
+
+If using the plugin, do:
+
 ```bash
 openclaw config set plugins.allow '["ceramic-search"]' --strict-json
 openclaw config set tools.alsoAllow '["ceramic_search"]' --strict-json
 ```
 
-**4. Modify TOOLS.md:**
+### 3. Modify TOOLS.md
 
 Add the following to `~/.openclaw/workspace/TOOLS.md` (create the file if it doesn't exist) to ensure Ceramic search gets used:
 
@@ -33,63 +48,26 @@ Add the following to `~/.openclaw/workspace/TOOLS.md` (create the file if it doe
 Always use the `ceramic_search` tool for web searches. Do not use built-in model web search or any other search tool.
 ```
 
-**5. Disable competing web search tools:**
+Replace "`ceramic_search` tool" with "`ceramic-search` skill" if using the skill instead of the plugin.
+
+### 4. Disable competing web search tools
+
 ```bash
 openclaw config set tools.deny '["web_search"]' --strict-json
 ```
 
-This prevents the agent from using built-in model search and forces it to follow the skill's instructions instead.
+This prevents the agent from using the built-in model search and forces it to use Ceramic search instead.
 
-**6. Restart the gateway:**
+### 5. Restart the gateway
+
 ```bash
 openclaw gateway restart
 ```
 
-**7. Test it:**
+### 6. Test it
+
 ```bash
 openclaw agent --agent main --message "What are the top AI news stories right now?"
 ```
 
 A successful run will show the agent invoking `ceramic_search` with a keyword query and returning a cited answer.
-
-## Option 2 — Skill
-
-The skill provides prompt-level instructions that tell the agent when and how to call the Ceramic Search API.
-
-**1. Install the skill:**
-```bash
-openclaw skills install ceramic-search
-```
-
-**2. Set your API key:**
-Get a Ceramic API key for free at [platform.ceramic.ai/keys](https://platform.ceramic.ai/keys) and export it:
-```bash
-export CERAMIC_API_KEY=your_api_key_here
-```
-
-**3. Modify TOOLS.md:**
-
-Add the following to `~/.openclaw/workspace/TOOLS.md` (create the file if it doesn't exist) to ensure Ceramic search gets used:
-
-```markdown
-## Web Search
-
-Always use the `ceramic-search` skill for web searches. Do not use built-in model web search or any other search tool.
-```
-
-**4. Disable competing web search tools:**
-```bash
-openclaw config set tools.deny '["web_search"]' --strict-json
-```
-
-This prevents the agent from using built-in model search and forces it to follow the skill's instructions instead.
-
-**5. Restart the gateway:**
-```bash
-openclaw gateway restart
-```
-
-**6. Test it:**
-```bash
-openclaw agent --agent main --message "What are the top AI news stories right now?"
-```

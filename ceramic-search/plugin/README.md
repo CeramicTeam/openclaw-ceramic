@@ -10,9 +10,9 @@ openclaw plugins install clawhub:@ceramicai/openclaw-ceramic-search
 ```
 
 **2. Set your API key:**
-Get a Ceramic API key for free at [platform.ceramic.ai/keys](https://platform.ceramic.ai/keys) and export it:
+Get a Ceramic API key for free at [platform.ceramic.ai/keys](https://platform.ceramic.ai/keys) and set it:
 ```bash
-export CERAMIC_API_KEY=your_api_key_here
+openclaw config set plugins.entries.ceramic-search.config.apiKey your_api_key_here
 ```
 
 **3. Allow the plugin and expose the tool:**
