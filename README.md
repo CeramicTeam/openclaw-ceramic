@@ -23,7 +23,7 @@ openclaw config set plugins.allow '["ceramic-search"]' --strict-json
 openclaw config set tools.alsoAllow '["ceramic_search"]' --strict-json
 ```
 
-**3. Modify TOOLS.md:**
+**4. Modify TOOLS.md:**
 
 Add the following to `~/.openclaw/workspace/TOOLS.md` (create the file if it doesn't exist) to ensure Ceramic search gets used:
 
@@ -33,19 +33,19 @@ Add the following to `~/.openclaw/workspace/TOOLS.md` (create the file if it doe
 Always use the `ceramic_search` tool for web searches. Do not use built-in model web search or any other search tool.
 ```
 
-**4. Disable competing web search tools:**
+**5. Disable competing web search tools:**
 ```bash
 openclaw config set tools.deny '["web_search"]' --strict-json
 ```
 
 This prevents the agent from using built-in model search and forces it to follow the skill's instructions instead.
 
-**5. Restart the gateway:**
+**6. Restart the gateway:**
 ```bash
 openclaw gateway restart
 ```
 
-**6. Test it:**
+**7. Test it:**
 ```bash
 openclaw agent --agent main --message "What are the top AI news stories right now?"
 ```
@@ -77,19 +77,19 @@ Add the following to `~/.openclaw/workspace/TOOLS.md` (create the file if it doe
 Always use the `ceramic-search` skill for web searches. Do not use built-in model web search or any other search tool.
 ```
 
-**3. Disable competing web search tools:**
+**4. Disable competing web search tools:**
 ```bash
 openclaw config set tools.deny '["web_search"]' --strict-json
 ```
 
 This prevents the agent from using built-in model search and forces it to follow the skill's instructions instead.
 
-**4. Restart the gateway:**
+**5. Restart the gateway:**
 ```bash
 openclaw gateway restart
 ```
 
-**5. Test it:**
+**6. Test it:**
 ```bash
 openclaw agent --agent main --message "What are the top AI news stories right now?"
 ```
