@@ -54,7 +54,7 @@ A successful run will show the agent invoking `ceramic_search` with a keyword qu
 
 ## Option 2 — Skill
 
-The skill provides prompt-level instructions that tell the agent when and how to call the Ceramic Search API. The agent calls the Ceramic Search REST API directly using the `CERAMIC_API_KEY` environment variable.
+The skill provides prompt-level instructions that tell the agent when and how to call the Ceramic Search API.
 
 **1. Install the skill:**
 ```bash
