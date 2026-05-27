@@ -25,9 +25,9 @@ var index_default = definePluginEntry({
       name: "ceramic_search",
       label: "Ceramic Search",
       description: [
-        "Search the web using Ceramic's search engine for AI agents.",
-        "Use proactively when you need current, external, or real-time information:",
-        "news, prices, recent events, live docs, or any fact that may have changed."
+        "Search the web using Ceramic.",
+        "Use for accurate current information — news, prices, recent events, documentation, general fact checking.",
+        "Returns up to 10 ranked results with titles, URLs, and descriptions."
       ].join(" "),
       parameters: PARAMS_SCHEMA,
       async execute(_toolCallId, rawParams, signal) {
@@ -56,25 +56,21 @@ var index_default = definePluginEntry({
           const llmResult = await api.runtime.llm.complete({
             purpose: "ceramic_search: query rewrite",
             systemPrompt: [
-              "Rewrite the user's natural language query into 1\u20133 keyword-based search",
-              "queries for Ceramic's lexical search engine.",
-              "Ceramic matches exact keywords \u2014 it does not interpret natural language",
-              "or synonyms automatically.",
+              "Rewrite the user's natural language query into 1\u20133 keyword-based search queries for Ceramic's lexical search engine.",
+              "Ceramic matches exact keywords \u2014 it does not interpret natural language or synonyms automatically.",
               "",
               "Rules:",
-              "- Each query must be 2\u20138 words.",
+              "- Queries must be 2-8 words.",
               "- Extract specific entities, topics, locations, and dates.",
               "- Replace conversational phrasing with concrete keywords.",
-              "- Do not include uninformative words such as articles (the, a, an) or",
-              "  prepositions (on, about, in, for, of, at, by, with).",
-              "- Include relevant synonyms explicitly when terminology is ambiguous \u2014",
-              "  use a separate query for each synonym set.",
-              "- Keep word order meaningful: 'house cat' and 'cat house' differ.",
+              "- Do not include uninformative words such as articles (the, a, an). Avoid prepositions (on, about, in, for, of, at, by, with) unless they are within established phrases or names (United States of America, Into the Wild).",
+              "- Include relevant synonyms explicitly when terminology is ambiguous.",
+              "- Keep word order meaningful (`house cat` and `cat house` return different results).",
               "",
-              "Examples of good keyword queries:",
-              '  "2026 Super Bowl halftime performer"',
-              '  "climate change effects global warming impact"',
-              '  "beginner investing strategies stocks bonds basics"',
+              "Good keyword query examples:",
+              '- "2026 Super Bowl halftime performer"',
+              '- "climate change effects global warming impact"',
+              '- "beginner investing strategies stocks bonds basics"',
               "",
               "Return ONLY a JSON array of strings with no markdown or explanation.",
               'Example: ["large language model news 2025", "LLM benchmarks latest research"]'
