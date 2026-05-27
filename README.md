@@ -76,4 +76,4 @@ openclaw gateway restart
 openclaw agent --agent main --message "What are the top AI news stories right now?"
 ```
 
-A successful run will show the agent invoking `ceramic_search` with a keyword query and returning a cited answer.
+A successful run will show the agent invoking Ceramic search with a keyword query and returning a cited answer.
