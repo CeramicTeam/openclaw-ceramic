@@ -1,7 +1,7 @@
 {
   "id": "ceramic-search",
   "name": "Ceramic Search",
-  "description": "Web search for AI agents via Ceramic Search API. Exposes ceramic_search as a native agent tool.",
+  "description": "Web search for AI agents via Ceramic's MCP server. Registers Ceramic as a tools.web.search.provider option.",
   "configSchema": {
     "type": "object",
     "properties": {
@@ -10,6 +10,6 @@
     "additionalProperties": false
   },
   "contracts": {
-    "tools": ["ceramic_search"]
+    "webSearchProviders": ["ceramic"]
   }
 }
