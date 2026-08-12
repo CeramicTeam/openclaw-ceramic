@@ -8,7 +8,6 @@ Ceramic integrates into OpenClaw as a **native web search provider**: installing
 
 ```bash
 openclaw plugins install clawhub:@ceramicai/openclaw-ceramic-search
-openclaw config set plugins.allow '["ceramic-search"]' --strict-json
 openclaw config set plugins.entries.ceramic-search.config.apiKey your_api_key_here
 openclaw config set tools.web.search.provider ceramic
 openclaw gateway restart

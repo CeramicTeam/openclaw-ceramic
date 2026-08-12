@@ -15,9 +15,8 @@ Get a Ceramic API key for free at [platform.ceramic.ai/keys](https://platform.ce
 openclaw config set plugins.entries.ceramic-search.config.apiKey your_api_key_here
 ```
 
-**3. Allow the plugin and select the provider:**
+**3. Select the provider:**
 ```bash
-openclaw config set plugins.allow '["ceramic-search"]' --strict-json
 openclaw config set tools.web.search.provider ceramic
 ```
 

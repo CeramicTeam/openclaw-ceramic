@@ -150,7 +150,11 @@ var index_default = definePluginEntry({
           parameters: PARAMS_SCHEMA,
           async execute(rawParams, execCtx) {
             const params = rawParams;
-            const apiKey = resolveApiKey(ctx.searchConfig);
+            // ctx.searchConfig is the shared tools.web.search config (maxResults,
+            // timeoutSeconds, ...) — it does NOT hold plugin-specific credentials.
+            // Ours lives at plugins.entries.ceramic-search.config, mirrored by
+            // api.pluginConfig for the same running plugin instance.
+            const apiKey = resolveApiKey(api.pluginConfig ?? ctx.config?.plugins?.entries?.["ceramic-search"]?.config);
             if (!apiKey) {
               return {
                 error: "missing_api_key",
